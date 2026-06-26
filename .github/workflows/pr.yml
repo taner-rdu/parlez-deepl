@@ -9,9 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-versions: ["3.11", "3.12", "3.13"]
-      env:
-        UV_PYTHON: ${{ matrix.python-version }}
+        python-version: ["3.11", "3.12", "3.13"]
+    env:
+      UV_PYTHON: ${{ matrix.python-version }}
 
     steps:
       - uses: actions/checkout@v4

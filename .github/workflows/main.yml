@@ -20,11 +20,18 @@ jobs:
       - name: Run tests
         run: uv run pytest
 
+      - name: Extract version from pyproject.toml
+        id: version
+        run: |
+          VERSION=$(grep '^version' pyproject.toml | sed 's/version = "\(.*\)"/\1/')  # strips everything except the version number
+          echo "Version found: $VERSION"
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
       - name: Build package
         run: uv build
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: parlez-deepl-dist
+          name: parlez-deepl-dist-${{ steps.version.outputs.version }}-dist
           path: dist/
